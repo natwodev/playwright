@@ -1,0 +1,8 @@
+node_modules/
+test-results/
+playwright-report/
+**/*.js
+package-lock.json
+test-results.json
+dist/**/*
+build/**/*
