@@ -15,7 +15,8 @@ public class PlaywrightFixture : IAsyncLifetime
 
         Browser = await Playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
         {
-            Headless = false
+            Headless = false,
+            SlowMo = 2000
         });
 
         var context = await Browser.NewContextAsync();

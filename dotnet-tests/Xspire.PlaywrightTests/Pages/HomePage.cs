@@ -15,6 +15,7 @@ public class HomePage
     public ILocator HeaderWelcome => _page.GetByText("Welcome to Xspire", new PageGetByTextOptions { Exact = false });
     public ILocator UserAvatar => _page.Locator("xpath=//*[@id=\"userItem\"]/a/div/img");
     public ILocator LogoutMenuItem => _page.Locator("xpath=//*[@id=\"MenuItem_Account_Logout\"]/a/span[2]");
+    public ILocator SalesInvoiceMenuItem => _page.Locator("xpath=//*[@id=\"MenuItem_SI\"]/span[2]").First;
 
     public async Task NavigateToAsync(string relativeUrl)
     {
