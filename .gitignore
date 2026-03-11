@@ -151,3 +151,7 @@ logs/info.log
 /playwright/.trace/
 /playwright/.inspector/
 /playwright/.recorder/
+
+# Internal prompts & commit rules
+promt.md
+readme_quy_tắc_commit_code.md
