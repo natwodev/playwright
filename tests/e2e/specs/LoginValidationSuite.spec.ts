@@ -294,7 +294,7 @@ test.describe('TS-AUTH-001-Login Validation Suite', () => {
     await HomePage.imageUserAvatar().click();
     await HomePage.menuCtxItemLogout().click();
     await waitForPageLoadState();
-    await expectPageToHaveTitle('Login | Xspire');
-    await expectPageToHaveURL(/\/Account\/Login/);
+    await expectPageToHaveTitle('Xspire');
+    await expectPageToHaveURL(/xspire-test\.hqsoft\.vn\/?$/);
   });
 });
