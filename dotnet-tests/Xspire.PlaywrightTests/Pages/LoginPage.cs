@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Playwright;
 
@@ -34,14 +35,35 @@ public class LoginPage
 
     public async Task GotoAsync()
     {
+        Console.WriteLine($"[LoginPage.GotoAsync] Navigating to {BaseUrl}Account/Login ...");
         await _page.GotoAsync($"{BaseUrl}Account/Login");
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        await _page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
+        Console.WriteLine($"[LoginPage.GotoAsync] DOMContentLoaded. Current URL = {_page.Url}");
+
+        if (_page.Url.Contains("/Account/Login", StringComparison.OrdinalIgnoreCase))
+        {
+            Console.WriteLine("[LoginPage.GotoAsync] Still on Login page -> waiting for UserNameInput...");
+            await UserNameInput.WaitForAsync(new LocatorWaitForOptions
+            {
+                State = WaitForSelectorState.Visible,
+                Timeout = 30000
+            });
+            Console.WriteLine("[LoginPage.GotoAsync] UserNameInput is visible.");
+        }
+        else
+        {
+            Console.WriteLine("[LoginPage.GotoAsync] Redirected away from Login page, skipping UserNameInput wait.");
+        }
     }
 
     public async Task FillSuccessAccountAsync(string username, string password)
     {
+        Console.WriteLine($"[LoginPage.FillSuccessAccountAsync] Current URL = {_page.Url}");
+        Console.WriteLine($"[LoginPage.FillSuccessAccountAsync] Filling username = {username}");
         await UserNameInput.FillAsync(username);
+        Console.WriteLine("[LoginPage.FillSuccessAccountAsync] Filling password...");
         await PasswordInput.FillAsync(password);
+        Console.WriteLine("[LoginPage.FillSuccessAccountAsync] Done.");
     }
 
     public async Task FillFailedAccountAsync(string username, string password)
